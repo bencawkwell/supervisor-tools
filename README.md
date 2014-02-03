@@ -1,12 +1,12 @@
 supervisor-tools
 ================
 
-Some simple bash scripts I use with supervisord, usually within docker containers. Currently this includes only one script, wait-for-daemons.sh which can be used to pause execution of a script until supervisord has started a program.
+Some simple bash scripts I use with supervisord, usually within docker containers. Currently this includes only one script, wait-for-daemons.sh which can be used to pause execution of a script until supervisord has started a specific program or set of programs.
 
 Usage
 -----
 
-The following bash script will only ouput "RESTARTED" when sshd has finished being restarted under supervisord:
+The following bash script will only ouput "RESTARTED" once sshd has finished being restarted by supervisord:
 
     #!/bin/bash
     supervisorctl restart sshd
@@ -17,7 +17,7 @@ You can also specify multiple programs to wait for:
 
     ./wait-for-daemons.sh sshd apache2
 
-This script makes use of supervisorctl. If supervisorctl is not in your path or you want to use a specify its path then use the optional "p" option:
+This script makes use of supervisorctl. If supervisorctl is not in your path or you want to specify its path then use the optional "p" option:
 
     ./wait-for-daemons -p /usr/sbin/supervisorctl sshd
 
