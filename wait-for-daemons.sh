@@ -18,7 +18,7 @@ EXAMPLE USAGE:
 EOF
 }
 
-SUPERVISORCTL_PATH="supervistorctl"
+SUPERVISORCTL_PATH="supervisorctl"
 while getopts ":hp:" OPTION
 do
     case $OPTION in
@@ -40,11 +40,11 @@ shift $(( OPTIND - 1 ))
 for program in "$@"; do
     echo "checking $program"
     while [ 1 ]; do
-        if [ "`supervisorctl status $program`" == "No such process $program" ] ; then
+        if [ "`$SUPERVISORCTL_PATH status $program`" == "No such process $program" ] ; then
             echo $program is not configured to be running
             break
         fi
-        status=`supervisorctl status $program | awk '{print $2}'`
+        status=`$SUPERVISORCTL_PATH status $program | awk '{print $2}'`
         if [ "$status" == "RUNNING" ] ; then
             echo $program running
             break
