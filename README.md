@@ -32,7 +32,6 @@ Todo
 
 * Error handling.
 * Automated tests.
-* Add an "all" option that will wait for all programs configured under supervisord.
 * Perhaps a silent option so you do not have to output to null.
 * This has only been tested using supervisord version 3.0a8 on ubuntu precise. I suspect its not very robust against updates to supervisord/supervisorctl.
 * Allow additional parameters to be passed when calling supervisorctl. This may be needed for authentication.

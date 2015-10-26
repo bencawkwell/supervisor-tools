@@ -10,6 +10,7 @@ have the status RUNNING. If a program is not configured to be running under supe
 be ignored.
 
 OPTIONS:
+   -a      Wait for all programs managed by supervisor to have started
    -h      Show this message
    -p      Optionally specify path to supervisorctl
 
@@ -19,9 +20,12 @@ EOF
 }
 
 SUPERVISORCTL_PATH="supervisorctl"
-while getopts ":hp:" OPTION
+while getopts ":ahp:" OPTION
 do
     case $OPTION in
+        a)
+            ALL_PROGRAMS=1
+            ;;
         h)
             usage
             exit 1
@@ -37,6 +41,10 @@ do
 done
 
 shift $(( OPTIND - 1 ))
+if [ $ALL_PROGRAMS ] ; then
+    PROGRAM_LIST=( $($SUPERVISORCTL_PATH avail | awk '{print $1}') )
+    set ${PROGRAM_LIST[*]}
+fi
 for program in "$@"; do
     echo "checking $program"
     while [ 1 ]; do
